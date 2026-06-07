@@ -1,0 +1,50 @@
+# ============================================
+# .htaccess — Security & URL Settings
+# ============================================
+# This file configures the Apache web server.
+# It lives in your project root and affects only this folder.
+#
+# What it does:
+#   1. Blocks direct access to config.php (hides your DB password)
+#   2. Blocks directory listing (users can't see your files)
+#   3. Sets the default page to index.php
+#   4. Prevents access to the sql/ folder
+
+# ---------------------------
+# 1. Block access to config.php
+#    config.php contains your database password.
+#    Even though Apache usually runs PHP files, this is extra safety.
+# ---------------------------
+<Files "config.php">
+    Require all denied
+</Files>
+
+# ---------------------------
+# 2. Disable directory listing
+#    Without this, visiting /phpcrud/sql/ would show all .sql files.
+#    With this, visitors get a "403 Forbidden" error instead.
+# ---------------------------
+Options -Indexes
+
+# ---------------------------
+# 3. Default page
+#    When someone visits your project URL without a filename,
+#    Apache looks for these files in order.
+# ---------------------------
+DirectoryIndex index.php
+
+# ---------------------------
+# 4. Protect the sql/ folder
+#    Database schema files shouldn't be publicly accessible.
+# ---------------------------
+<DirectoryMatch "^.*/sql/">
+    Require all denied
+</DirectoryMatch>
+
+# ---------------------------
+# 5. PHP error display (development only!)
+#    Shows PHP errors in the browser, which is helpful while learning.
+#    ⚠️ On a LIVE website, remove these lines — they show too much info.
+# ---------------------------
+php_flag display_errors on
+php_value error_reporting E_ALL
