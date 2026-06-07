@@ -1,0 +1,21 @@
+# ============================================
+# .gitignore — Files Git should ignore
+# ============================================
+# This tells Git which files NOT to track.
+# config.php contains passwords — you NEVER want that in version control!
+
+# Database config (contains passwords!)
+config.php
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
